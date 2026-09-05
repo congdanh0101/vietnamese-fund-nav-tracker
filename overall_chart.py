@@ -319,6 +319,6 @@ fig.update_yaxes(title_text="Số tiền (VN₫)", row=2, col=1)
 fig.update_xaxes(title_text="Thời gian", row=1, col=1)
 fig.update_xaxes(title_text="Mã CCQ / Tổng danh mục", row=2, col=1)
 
-fig.show()
+# fig.show()
 
-# fig.write_html("/overall_chart.html")
+fig.write_html("reports/overall_chart.html")

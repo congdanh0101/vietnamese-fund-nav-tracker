@@ -151,4 +151,6 @@ fig.update_layout(
     template="plotly_white",
 )
 
-fig.show()
+# fig.show()
+
+fig.write_html("reports/line_chart.html")

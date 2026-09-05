@@ -9,12 +9,12 @@ AMOUNT = 300000
 
 def main():
     nav.fetchNav()
-    # start_date = pd.Timestamp.today().normalize().replace(day=1)
-    start_date = pd.Timestamp.today().normalize()
-    end_date = start_date + pd.DateOffset(months=3)
+    start_date = pd.Timestamp.today().normalize().replace(day=1)
+    # start_date = pd.Timestamp.today().normalize()
+    end_date = start_date + pd.DateOffset(months=1)
     for date in pd.date_range(start=start_date, end=end_date, freq="B"):
         date_str = date.strftime("%Y-%m-%d")
-        transaction.add_daily_transaction("VCBFBCF", date_str, AMOUNT, "data_trans/VCBFBCF_transaction.csv")
+        transaction.add_daily_transaction("VCBFBCF", date_str, AMOUNT, "data_trans/VCBFBCF_transaction.csv", 'SIP')
             
     # transaction.add_daily_transaction('VCBFBCF',None,AMOUNT,'data_trans/VCBFBCF_transaction.csv')
     transaction.mergedAllTransaction()

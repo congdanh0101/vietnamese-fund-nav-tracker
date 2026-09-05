@@ -69,10 +69,18 @@ def format_money(val_str, swap = True):
         except:
             return val_str
 
-def add_daily_transaction(fund_code, transaction_date, investment_value, file_path):
+def add_daily_transaction(fund_code, transaction_date, investment_value, file_path, transaction_type = 'SIP'):
     
     if transaction_date is None:
         transaction_date = datetime.now().strftime('%Y-%m-%d')
+    
+    df = pd.read_csv(file_path)
+    
+    condition = (df['Mã CCQ'] == fund_code) & (df['Ngày khớp lệnh'] == transaction_date) & (transaction_type == 'SIP')
+    match = df[condition]    
+    if not match.empty:
+        print(f"Transaction SIP for {fund_code} at {transaction_date} has been existed")
+        return
     
     nav_val = nav.getNavByFundCodeAndDate(fund_code, transaction_date)
     
@@ -99,11 +107,8 @@ def add_daily_transaction(fund_code, transaction_date, investment_value, file_pa
         'Vốn đầu tư': f"{investment_value_str} VN₫"
     }])
     
-    # 2. Đọc file hiện tại và gộp dòng mới
-    df = pd.read_csv(file_path)
+    
     df_updated = pd.concat([df, new_data], ignore_index=True)
-    
-    
     
     # 3. Sắp xếp lại theo thứ tự ngày tăng dần
     df_updated['Ngay_temp'] = pd.to_datetime(df_updated['Ngày khớp lệnh'])

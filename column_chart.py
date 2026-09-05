@@ -143,4 +143,6 @@ fig.update_layout(
 
 fig.update_yaxes(title_text="Số tiền (VN₫)", row=1, col=1)
 
-fig.show()
+# fig.show()
+
+fig.write_html("reports/column_chart.html")
