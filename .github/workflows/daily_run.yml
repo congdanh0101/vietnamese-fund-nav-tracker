@@ -11,6 +11,12 @@ on:
 # Phân quyền cho toàn bộ workflow (cần thiết cho cả việc push code và deploy Pages)
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   run-portfolio:
