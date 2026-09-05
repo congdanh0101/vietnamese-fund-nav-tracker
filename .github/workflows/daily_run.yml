@@ -23,14 +23,19 @@ permissions:
 
 jobs:
   run-portfolio:
-    name: This job runs on schedule or if inputs.should_run is true
+    name: Run portfolio tasks
     runs-on: ubuntu-latest
 
-    if: ${{ !contains(inputs.should_run, 'false') }}
     steps:
-      run: echo "Schedule action is running"
+      - name: Print execution type
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            echo "Schedule action is running"
+          else
+            echo "Run manual ${{ inputs.should_run }}"
+          fi  
 
-    steps:
+
       # 1. Tải toàn bộ source code từ Repo về máy chủ ảo
       - name: Checkout Repository
         uses: actions/checkout@v4
