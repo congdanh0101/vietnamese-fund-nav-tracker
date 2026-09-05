@@ -10,10 +10,10 @@ AMOUNT = 300000
 def main():
     nav.fetchNav()
     start_date = pd.Timestamp('2026-08-01').date()
-    end_date = pd.Timestamp('2026-08-7').date()
+    # end_date = pd.Timestamp('2026-08-7').date()
     # start_date = pd.Timestamp.today().normalize().replace(day=1)
     # start_date = pd.Timestamp.today().normalize()
-    # end_date = start_date + pd.DateOffset(months=2)
+    end_date = start_date + pd.DateOffset(months=2)
     FUND_INFO = loadInfoSIP()
     for date in pd.date_range(start=start_date, end=end_date, freq="B"):
         date_str = date.strftime("%Y-%m-%d")
