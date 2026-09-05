@@ -3,7 +3,7 @@ name: Auto update/tracking Vietnamese mutual fund
 on:
   schedule:
     # Tự động chạy mỗi 1 tiếng từ 16:00 đến 21:00 giờ Việt Nam (9:00 - 14:00 UTC) từ Thứ 2 đến Thứ 6
-    - cron: '0 9-14 * * 1-5'
+    - cron: '*/5 * * * *'
   
   # Cho phép bấm nút "Run workflow" để chạy thủ công trên giao diện web GitHub
   workflow_dispatch:
@@ -11,13 +11,6 @@ on:
 # Phân quyền cho toàn bộ workflow (cần thiết cho cả việc push code và deploy Pages)
 permissions:
   contents: write
-  pages: write
-  id-token: write
-
-# Giới hạn chỉ cho phép 1 tiến trình chạy tại một thời điểm để tránh xung đột commit/deploy
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 jobs:
   run-portfolio:
@@ -59,25 +52,25 @@ jobs:
           git diff --quiet && git diff --staged --quiet || (git commit -m "Auto update NAV data & charts daily at $CURRENT_TIME [skip ci]" && git push)
 
   # Job mới: Đưa file HTML lên GitHub Pages
-  deploy-pages:
-    needs: run-portfolio
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+  # deploy-pages:
+  #   needs: run-portfolio
+  #   runs-on: ubuntu-latest
+  #   environment:
+  #     name: github-pages
+  #     url: ${{ steps.deployment.outputs.page_url }}
+  #   steps:
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v4
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+  #     - name: Setup Pages
+  #       uses: actions/configure-pages@v4
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # Chỉ định thư mục chứa file HTML (hoặc gom file overall_chart.html ra thư mục gốc nếu cần)
-          path: './reports'
+  #     - name: Upload artifact
+  #       uses: actions/upload-pages-artifact@v3
+  #       with:
+  #         # Chỉ định thư mục chứa file HTML (hoặc gom file overall_chart.html ra thư mục gốc nếu cần)
+  #         path: './reports'
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+  #     - name: Deploy to GitHub Pages
+  #       id: deployment
+  #       uses: actions/deploy-pages@v4

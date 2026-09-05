@@ -10,7 +10,7 @@ AMOUNT = 300000
 def main():
     nav.fetchNav()
     start_date = pd.Timestamp('2026-08-01').date()
-    # end_date = pd.Timestamp('2026-08-20').date()
+    # end_date = pd.Timestamp('2026-08-15').date()
     # start_date = pd.Timestamp.today().normalize().replace(day=1)
     # start_date = pd.Timestamp.today().normalize()
     end_date = start_date + pd.DateOffset(months=2)
