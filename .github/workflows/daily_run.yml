@@ -1,13 +1,12 @@
 name: Auto update/tracking Vietnamese mutual fund
 
 on:
-  # push:
-  #   branches:
-  #     - master
+  push:
+    branches:
+      - master
   schedule:
     # Tự động chạy mỗi 1 tiếng từ 16:00 đến 21:00 giờ Việt Nam (9:00 - 14:00 UTC) từ Thứ 2 đến Thứ 6
-    - cron: '*/5 * * * *'
-      timezone: "Asia/Ho_Chi_Minh"
+    - cron: '0 9-14 * * 1-5'
   
   # Cho phép bấm nút "Run workflow" để chạy thủ công trên giao diện web GitHub
   workflow_dispatch:
