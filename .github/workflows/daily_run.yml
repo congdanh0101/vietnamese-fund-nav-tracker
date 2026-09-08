@@ -1,12 +1,12 @@
 name: Auto update/tracking Vietnamese mutual fund
 
 on:
-  push:
-    branches:
-      - master
+  # push:
+  #   branches:
+  #     - master
   schedule:
     # Tự động chạy mỗi 15p/lần từ Thứ 2 đến Thứ 6
-    - cron: '0/15 * * * 1-5'
+    - cron: '0/15 8-20 * * 1-5'
   
   # Cho phép bấm nút "Run workflow" để chạy thủ công trên giao diện web GitHub
   workflow_dispatch:
