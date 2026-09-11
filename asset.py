@@ -85,4 +85,4 @@ def generate_total_asset(tx_file='data_trans/All_Transactions_Merged.csv', nav_f
     print(f"Đã xuất file '{output_file}' thành công!")
 
 # Chạy tạo file
-generate_total_asset()
+# generate_total_asset()

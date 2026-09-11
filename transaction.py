@@ -125,6 +125,7 @@ def add_daily_transaction(fund_code, transaction_date, investment_value, file_pa
 
 def mergedAllTransaction():
     print('Merge transaction')
+    dfBeforeMerge = pd.read_csv("data_trans/All_Transactions_Merged.csv")
     file_list = ['VCBFBCF_transaction.csv', 'VMEEF_transaction.csv', 'DCDS_transaction.csv']
     dfs = []
     for file in file_list:
@@ -150,5 +151,10 @@ def mergedAllTransaction():
 
     # 5. Lưu kết quả ra file CSV gộp chung
     merged_df.to_csv('data_trans/All_Transactions_Merged.csv', index=False)
+    
+    if (len(merged_df) <= len(dfBeforeMerge)):
+        return False
+    else:
+        return True
 
 # initAllTransaction()

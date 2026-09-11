@@ -70,4 +70,4 @@ jobs:
           CURRENT_TIME=$(TZ='Asia/Ho_Chi_Minh' date '+%Y-%m-%d %H:%M:%S')
           
           # Kiểm tra thay đổi và commit kèm mốc thời gian động
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto update NAV data & charts daily at $CURRENT_TIME [skip ci]" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "update NAV at $CURRENT_TIME" && git push)

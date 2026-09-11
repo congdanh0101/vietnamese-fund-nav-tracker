@@ -6,6 +6,7 @@ from datetime import datetime
 url = "https://api.fmarket.vn/res/product/get-nav-history"
 
 def fetchNav():
+    dfBeforeFetch = pd.read_csv("nav_history_all.csv")
     products = [
         {"code": "DCDS", "productId": 28},
         {"code": "VCBFBCF", "productId": 32},
@@ -63,8 +64,14 @@ def fetchNav():
             writer.writerows(all_nav_data)
             
         print(f"\n✅ ĐÃ HOÀN THÀNH! Đã lưu tổng cộng {len(all_nav_data)} dòng vào file '{output_file}'.")
+        
+        if (len(all_nav_data) <= len(dfBeforeFetch)):
+            return False
+        else:
+            return True
     else:
         print("\n❌ Không lấy được dữ liệu nào!")
+        return False
         
 def getNavByFundCodeAndDate(fund_code, date = None):
     if date is None:
@@ -83,4 +90,4 @@ def getNavByFundCodeAndDate(fund_code, date = None):
         print(f"Không tìm thấy NAV cho mã '{fund_code}' vào ngày '{date}'")
         return None
     
-nav_val = getNavByFundCodeAndDate('VCBFBCF', '2026-08-28')
+

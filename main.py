@@ -8,23 +8,25 @@ import json
 AMOUNT = 300000
 
 def main():
-    nav.fetchNav()
-    start_date = pd.Timestamp('2026-08-01').date()
+    isFetch = nav.fetchNav()
+    # start_date = pd.Timestamp('2026-08-01').date()
     # end_date = pd.Timestamp('2026-08-7').date()
-    # start_date = pd.Timestamp.today().normalize().replace(day=1)
+    start_date = pd.Timestamp.today().normalize().replace(day=1)
     # start_date = pd.Timestamp.today().normalize()
-    end_date = start_date + pd.DateOffset(months=2)
+    end_date = start_date + pd.DateOffset(months=1)
     FUND_INFO = loadInfoSIP()
     for date in pd.date_range(start=start_date, end=end_date, freq="B"):
         date_str = date.strftime("%Y-%m-%d")
         transaction.add_daily_transaction(FUND_INFO[0], date_str, FUND_INFO[1], f"data_trans/{FUND_INFO[0]}_transaction.csv", 'SIP')
             
     # transaction.add_daily_transaction(FUND_INFO[0], None, FUND_INFO[1], f"data_trans/{FUND_INFO[0]}_transaction.csv", 'SIP')
-    transaction.mergedAllTransaction()
-    asset.generate_total_asset()
-    chart.overall_chart()
-    chart.line_chart()
-    chart.column_chart()
+    isMerge = transaction.mergedAllTransaction()
+    if isMerge == True or isFetch == True:
+        print('Generate chart')
+        asset.generate_total_asset()
+        chart.overall_chart()
+        chart.line_chart()
+        chart.column_chart()
 
 def loadInfoSIP():
     with open('config/sip_fund_config.json', 'r', encoding='utf-8') as f:
@@ -42,3 +44,4 @@ if __name__=="__main__":
     #     if date not in vn_holidays:
     #         date_str = date.strftime("%Y-%m-%d")
     #         print(date_str)
+    # transaction.readDF()
