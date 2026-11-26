@@ -11,13 +11,13 @@ def main():
     isFetch = nav.fetchNav()
     # start_date = pd.Timestamp('2026-08-01').date()
     # end_date = pd.Timestamp('2026-08-7').date()
-    start_date = pd.Timestamp.today().normalize().replace(day=1)
     # start_date = pd.Timestamp.today().normalize()
+    start_date = pd.Timestamp.today().normalize().replace(day=1)
     end_date = start_date + pd.DateOffset(months=1)
     FUND_INFO = loadInfoSIP()
     for date in pd.date_range(start=start_date, end=end_date, freq="B"):
         date_str = date.strftime("%Y-%m-%d")
-        transaction.add_daily_transaction(FUND_INFO[0], date_str, FUND_INFO[1], f"data_trans/{FUND_INFO[0]}_transaction.csv", 'SIP')
+        # transaction.add_daily_transaction(FUND_INFO[0], date_str, FUND_INFO[1], f"data_trans/{FUND_INFO[0]}_transaction.csv", 'SIP')
             
     # transaction.add_daily_transaction(FUND_INFO[0], None, FUND_INFO[1], f"data_trans/{FUND_INFO[0]}_transaction.csv", 'SIP')
     isMerge = transaction.mergedAllTransaction()
